@@ -13,6 +13,8 @@ func (app *application) routes() http.Handler {
 
 	mux.Handle("GET /static/", http.FileServerFS(ui.Files))
 
+	mux.HandleFunc("GET /health", health)
+
 	// Unprotected routes
 	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf, app.authenticate)
 
